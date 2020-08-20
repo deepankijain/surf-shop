@@ -57,4 +57,5 @@ router.get('/reset/:token', (req, res, next) => {
 router.put('/reset/:token', (req, res, next) => {
   res.send('PUT /reset/:token');
 });
+
 module.exports = router;
