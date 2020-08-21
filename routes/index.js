@@ -3,6 +3,9 @@ const router = express.Router();
 const {
   postRegister
 } = require('../controllers/index');
+const {
+  errorHandler
+} = require('../middleware');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -17,7 +20,7 @@ router.get('/register', (req, res, next) => {
 });
 
 /* POST /register */
-router.post('/register', postRegister);
+router.post('/register', errorHandler(postRegister));
 
 /* GET /login */
 router.get('/login', (req, res, next) => {
