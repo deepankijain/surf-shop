@@ -1,8 +1,20 @@
 <h1>Edit Post!</h1>
 
-<form action="/posts/<%= post.id %>?_method=PUT" method="POST">
+<form action="/posts/<%= post.id %>?_method=PUT" method="POST" id="postEditForm" enctype="multipart/form-data">
     <div><input type="text" name="post[title]" placeholder="Title" value="<%= post.title  %>"></div>
     <div><input type="text" name="post[price]" placeholder="Price" value="<%= post.price  %>"></div>
+    <div>
+        <input type="file" id="imageUpload" name="images" accept="images/*" multiple>
+    </div>
+    <div>
+        <% post.images.map((image, i)=>{%>
+        <img src="<%=image.url %>" alt="surf-board-image" width="200px">
+        <label for="image<%=i%>">Delete?</label>
+        <input type="checkbox" name="deleteImages[]" class="imageDeleteCheckbox" id="image<%=i%>"
+            value="<%= image.public_id %>">
+        <%}) %>
+
+    </div>
     <div>
         <textarea name="post[description]" placeholder="Description"><%= post.description  %></textarea>
     </div>
@@ -10,3 +22,24 @@
 
     <input type="submit">
 </form>
+
+<script>
+    // find post edit form
+    let postEditForm = document.getElementById("postEditForm");
+    // add submit event listener to post edit form
+    postEditForm.addEventListener('submit', event => {
+        //finds length of current images selected to be uploaded
+        let imageUploads = document.getElementById("imageUpload").files.length;
+        // finds length of current already uploaded images
+        let existingImgs = document.querySelectorAll(".imageDeleteCheckbox").length;
+        // finds length of currently checked images to be deleted
+        let imgDeletions = document.querySelectorAll(".imageDeleteCheckbox:checked").length;
+        // figure out whether to submit the form or not
+        let newTotal = existingImgs - imgDeletions + imageUploads;
+        if (newTotal > 4) {
+            event.preventDefault();
+            let removalAmt = newTotal - 4;
+            alert(`You need to remove atleast ${removalAmt} (more) image${removalAmt === 1 ? '' : 's'}!`)
+        }
+    })
+</script>

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
 const session = require('express-session');
@@ -21,7 +22,7 @@ mongoose.connect('mongodb://localhost:27017/surf-shop', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  useFindAndModify: true
+  useFindAndModify: false
 });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
