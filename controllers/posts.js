@@ -60,8 +60,9 @@ module.exports = {
                 model: 'User'
             }
         });
+        let floorRating = post.calculateAvgRating();
         let mapBoxToken = process.env.MAPBOX_TOKEN;
-		res.render('posts/show', { post, mapBoxToken });
+		res.render('posts/show', { post, mapBoxToken, floorRating });
     },
     // Posts Edit
     async postEdit(req, res, next) {

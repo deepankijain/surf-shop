@@ -66,6 +66,7 @@ app.use((req, res, next) => {
   //default user
   req.user = {
     '_id': '5f43e23daea9161ffcb6130b',
+    // '_id':'5f4410ca2e666615f0f89217',
     'username': 'dee',
   };
   res.locals.currentUser = req.user;
