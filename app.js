@@ -10,7 +10,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const User = require('./models/user');
 const methodOverride = require('method-override');
-
+// const seedPosts = require('./seeds');
+// seedPosts();
 
 //require routes
 const index = require('./routes/index');

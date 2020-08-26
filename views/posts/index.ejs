@@ -1,7 +1,8 @@
 <% layout('layouts/boilerplate') -%>
 <h1>Index Page!</h1>
 
-<% posts.map(post=>{ %>
+<% include ../partials/paginatePosts %> 
+<% posts.docs.map(post=>{ %>
 <div>
     <h2><%= post.title %></h2>
     <div>Price: <%= post.price %></div>
@@ -10,3 +11,4 @@
     <div><a href="/posts/<%= post.id %>">View more</a></div>
 </div>
 <% }); %>
+<% include ../partials/paginatePosts %> 
