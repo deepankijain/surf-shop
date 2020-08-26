@@ -44,10 +44,20 @@ module.exports = {
     },
     //Posts show
     async postShow(req, res, next) {
-        let post = await Post.findById(req.params.id);
-        res.render('posts/show', {
-            post
+        let post = await Post.findById(req.params.id).populate({
+            path: 'reviews',
+            options: {
+                sort: {
+                    _id: -1
+                }
+            },
+            populate: {
+                path: 'author',
+                model: 'User'
+            }
         });
+        let mapBoxToken = process.env.MAPBOX_TOKEN;
+		res.render('posts/show', { post, mapBoxToken });
     },
     // Posts Edit
     async postEdit(req, res, next) {
@@ -104,8 +114,9 @@ module.exports = {
         post.description = req.body.post.description;
         post.price = req.body.post.price;
         // save the updated post into the db
-        post.save();
+        await post.save();
         // redirect to show page
+        req.session.success = 'Post updated successfully!'
         res.redirect(`/posts/${post.id}`);
     },
     //Posts Delete
@@ -115,6 +126,7 @@ module.exports = {
             await cloudinary.v2.uploader.destroy(image.public_id);
         }
         await post.remove();
+        req.session.success = 'Post deleted successfully!';
         res.redirect('/posts');
     }
 }

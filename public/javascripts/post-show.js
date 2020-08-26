@@ -1,5 +1,4 @@
-mapboxgl.accessToken =
-    'pk.eyJ1IjoiZGVlcGFua2lqYWluIiwiYSI6ImNrZTc0a25xeDFpeWkycmxmZW5jMGI1cWUifQ.tsKhhwJatrZdFuE0547rNQ';
+mapboxgl.accessToken = mapBoxToken;
 
 var map = new mapboxgl.Map({
     container: 'map',
@@ -18,6 +17,16 @@ new mapboxgl.Marker(el)
     .setPopup(new mapboxgl.Popup({
             offset: 25
         }) // add popups
-        .setHTML('<h3>' + post.title + '</h3><p>' + post.location + '</p>')
-    )
+    .setHTML('<h3>' + post.title + '</h3><p>' + post.location + '</p>'))
     .addTo(map);
+
+// toggle review edit form
+ $('.toggle-edit-form').on('click', function () {
+     $(this).text() === "Edit" ? $(this).text('Cancel') : $(this).text('Edit');
+     $(this).siblings('.edit-review-form').toggle();
+ });
+
+ //clear rating event listener
+ $('.clear-rating').on('click', function(){
+     $(this).siblings('.input-no-rate').click();
+ })
