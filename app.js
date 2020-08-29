@@ -25,7 +25,8 @@ mongoose.connect('mongodb://localhost:27017/surf-shop', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  autoIndex: true
 });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -37,7 +38,6 @@ app.engine('ejs', engine);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 app.use(logger('dev'));
 app.use(express.static('public'));
 app.use(express.json());
@@ -64,11 +64,11 @@ passport.deserializeUser(User.deserializeUser());
 // set local variables middleware
 app.use((req, res, next) => {
   //default user
-  req.user = {
-    '_id': '5f43e23daea9161ffcb6130b',
-    // '_id':'5f4410ca2e666615f0f89217',
-    'username': 'dee',
-  };
+  // req.user = {
+  //   '_id': '5f43e23daea9161ffcb6130b',
+  //   // '_id':'5f4410ca2e666615f0f89217',
+  //   'username': 'dee',
+  // };
   res.locals.currentUser = req.user;
   // set default title 
   res.locals.title = 'Surf Shop';
